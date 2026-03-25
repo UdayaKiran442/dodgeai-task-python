@@ -1,0 +1,10 @@
+langchain
+langchain-experimental
+langchain-community
+langchain-openai
+langchain-neo4j
+neo4j
+fastapi
+wikipedia
+jq
+fastapi[standard]
