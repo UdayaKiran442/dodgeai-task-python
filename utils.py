@@ -58,11 +58,16 @@ def ingest_record(record, graph_instance, primary_key):
         )
 
 def query_neo4j(query_prompt: str):
+    result = driver.execute_query("MATCH (n) RETURN DISTINCT labels(n) AS labels")
+    labels = [rec["labels"][0] for rec in result.records]
+    flattended_labels = ", ".join(labels)
+
     cypher_query = llm.invoke(
         f"You are a helpful assistant for translating natural language queries \
         into Cypher queries. Given the following natural language query, \
         generate a Cypher query that can be executed against a Neo4j graph database. \
         Here is the natural language query: '{query_prompt}'.  \
+        Node Labels available in the database are: {flattended_labels}. \
         All values are strings. \
         Please provide only the Cypher query as the output. \
         Rules you MUST follow: \
