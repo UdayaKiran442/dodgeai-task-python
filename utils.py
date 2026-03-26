@@ -72,7 +72,6 @@ def query_neo4j(query_prompt: str):
             4. Please provide only the Cypher query as output, no explanations or notes."
     )
     modified_cypher_query = cypher_query.replace('```cypher', '').replace('```', '').replace('\n', '').strip()
-    print(f"Generated Cypher Query: {modified_cypher_query}")
     query_result = driver.execute_query(modified_cypher_query)
     return llm.invoke(
         f"You are a helpful assistant for summarizing Neo4j query results. Given the following Cypher query and its result, provide a concise summary of the information retrieved. Here is the Cypher query: '{modified_cypher_query}' and its result: '{query_result}'. Please provide a brief summary of the key insights from this query result."
